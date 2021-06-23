@@ -8,13 +8,16 @@ public class CaesarShift {
         this.shift = shift;
     }
 
-    //Extract Variable is CMD_OPT+V
     public String encode(String string) {
-        if (string.isEmpty() || shift == 0) return string;
+        return shiftString(string, shift);
+    }
+
+    private String shiftString(String string, int actualShift) {
+        if (string.isEmpty() || actualShift == 0) return string;
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = string.toCharArray();
-        for (char c: chars) {
-            stringBuilder.append(shiftCharacter(c, shift));
+        for (char c : chars) {
+            stringBuilder.append(shiftCharacter(c, actualShift));
         }
         return stringBuilder.toString();
     }
@@ -26,22 +29,10 @@ public class CaesarShift {
     private char shiftCharacter(char charAt, int actualShift) {
         if (!isLatin(charAt)) return charAt;
         char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
-        return (char) (((charAt - preferredA + actualShift) % ALPHA_SIZE) + preferredA);
-    }
-
-    private char shiftCharacter(char charAt) {
-        if (!isLatin(charAt)) return charAt;
-        char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
-        return (char) (((charAt - preferredA + shift) % ALPHA_SIZE) + preferredA);
+        return (char) (((charAt - preferredA + actualShift % 26) % ALPHA_SIZE) + preferredA);
     }
 
     public String decode(String string) {
-        if (string.isEmpty() || shift == 0) return string;
-        StringBuilder stringBuilder = new StringBuilder();
-        char[] chars = string.toCharArray();
-        for (char c: chars) {
-            stringBuilder.append(shiftCharacter(c, 26 - shift));
-        }
-        return stringBuilder.toString();
+        return shiftString(string, 26 - shift);
     }
 }

@@ -53,7 +53,9 @@ public class CaesarShiftTest {
             Arguments.of("", 0, ""),
             Arguments.of("Ktt", 5, "Foo"),//Green Bar
             Arguments.of("B", 1, "A"), //Green Bar
-            Arguments.of("A", 1, "Z")
+            Arguments.of("A", 1, "Z"),
+            Arguments.of("Z", 26 * 100, "Z"),
+            Arguments.of("Z", 27, "Y")
         );
     }
 
