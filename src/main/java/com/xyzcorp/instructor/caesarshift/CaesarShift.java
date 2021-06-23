@@ -14,7 +14,7 @@ public class CaesarShift {
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = string.toCharArray();
         for (char c: chars) {
-            stringBuilder.append(shiftCharacter(c));
+            stringBuilder.append(shiftCharacter(c, shift));
         }
         return stringBuilder.toString();
     }
@@ -23,9 +23,25 @@ public class CaesarShift {
         return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
     }
 
+    private char shiftCharacter(char charAt, int actualShift) {
+        if (!isLatin(charAt)) return charAt;
+        char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
+        return (char) (((charAt - preferredA + actualShift) % ALPHA_SIZE) + preferredA);
+    }
+
     private char shiftCharacter(char charAt) {
         if (!isLatin(charAt)) return charAt;
         char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
         return (char) (((charAt - preferredA + shift) % ALPHA_SIZE) + preferredA);
+    }
+
+    public String decode(String string) {
+        if (string.isEmpty() || shift == 0) return string;
+        StringBuilder stringBuilder = new StringBuilder();
+        char[] chars = string.toCharArray();
+        for (char c: chars) {
+            stringBuilder.append(shiftCharacter(c, 26 - shift));
+        }
+        return stringBuilder.toString();
     }
 }

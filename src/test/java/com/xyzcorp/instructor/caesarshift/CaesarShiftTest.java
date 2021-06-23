@@ -48,6 +48,23 @@ public class CaesarShiftTest {
         assertThat(encoded).isEqualTo(expected);
     }
 
+    private static Stream<Arguments> decodeProvider() {
+        return Stream.of(
+            Arguments.of("", 0, ""),
+            Arguments.of("Ktt", 5, "Foo"),//Green Bar
+            Arguments.of("B", 1, "A"), //Green Bar
+            Arguments.of("A", 1, "Z")
+        );
+    }
+
+    @ParameterizedTest(name= "{index}: string={0}, shift={1}, expected={2}")
+    @MethodSource("decodeProvider")
+    void testCaesarShiftDecoding(String str, int shift, String expected) {
+        CaesarShift cs = new CaesarShift(shift);
+        String encoded = cs.decode(str);
+        assertThat(encoded).isEqualTo(expected);
+    }
+
     @Test
     void testPedantry() {
         CaesarShift caesarShift = new CaesarShift(13);
