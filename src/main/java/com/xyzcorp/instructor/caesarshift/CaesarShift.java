@@ -11,16 +11,21 @@ public class CaesarShift {
     //Extract Variable is CMD_OPT+V
     public String encode(String string) {
         if (string.isEmpty() || shift == 0) return string;
-        char charAt = string.charAt(0);
-        char shiftedChar = shiftCharacter(charAt);
-        return String.valueOf(shiftedChar);
+        StringBuilder stringBuilder = new StringBuilder();
+        char[] chars = string.toCharArray();
+        for (char c: chars) {
+            stringBuilder.append(shiftCharacter(c));
+        }
+        return stringBuilder.toString();
+    }
+
+    private boolean isLatin(char c) {
+        return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
     }
 
     private char shiftCharacter(char charAt) {
-        if (!Character.isAlphabetic(charAt)) return charAt;
+        if (!isLatin(charAt)) return charAt;
         char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
-        char shiftedChar =
-            (char) (((charAt - preferredA + shift) % ALPHA_SIZE) + preferredA);
-        return shiftedChar;
+        return (char) (((charAt - preferredA + shift) % ALPHA_SIZE) + preferredA);
     }
 }

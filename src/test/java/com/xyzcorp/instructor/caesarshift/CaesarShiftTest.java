@@ -34,7 +34,9 @@ public class CaesarShiftTest {
             Arguments.of("g", 2, "i"), //Green Bar
             Arguments.of("z", 1, "a"),
             Arguments.of("A", 1, "B"),
-            Arguments.of("~", 1, "~")
+            Arguments.of("~", 1, "~"),
+            Arguments.of("Z", 26 * 100, "Z"), //Green Bar
+            Arguments.of("AB", 1, "BC")
         );
     }
 
@@ -44,5 +46,12 @@ public class CaesarShiftTest {
         CaesarShift cs = new CaesarShift(shift);
         String encoded = cs.encode(str);
         assertThat(encoded).isEqualTo(expected);
+    }
+
+    @Test
+    void testPedantry() {
+        CaesarShift caesarShift = new CaesarShift(13);
+        assertThat(caesarShift.encode("α")).isEqualTo("α");
+//        assertThat(caesarShift.decode("α")).isEqualTo("α");
     }
 }
