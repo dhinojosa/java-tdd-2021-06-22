@@ -33,6 +33,6 @@ public class CaesarShift {
     }
 
     public String decode(String string) {
-        return shiftString(string, 26 - shift);
+        return shiftString(string, -shift);
     }
 }
