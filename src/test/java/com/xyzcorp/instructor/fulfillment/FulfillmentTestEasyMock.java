@@ -8,10 +8,15 @@ public class FulfillmentTestEasyMock {
     @Test
     void testFulfillmentWithZeroInventory() {
         Warehouse warehouse = mock(Warehouse.class);
-        Cart cart = mock(CartMap.class);
+        Cart cart = mock(Cart.class);
         Product skyGalaxyEarbuds = new Product("Sky Galaxy Earbuds");
+
+        //setup the expectation
         expect(warehouse.canFulfill(3, skyGalaxyEarbuds)).andReturn(false);
-        Fulfillment fulfillment = new Fulfillment(warehouse, () -> cart);
+
+        //setup up sut
+        Fulfillment fulfillment = new WarehouseFulfillment(warehouse, () -> cart);
+
         replay(warehouse, cart);
         fulfillment.order(skyGalaxyEarbuds, 3);
         verify(warehouse, cart);
@@ -24,7 +29,7 @@ public class FulfillmentTestEasyMock {
         Product skyGalaxyEarbuds = new Product("Sky Galaxy Earbuds");
         expect(warehouse.canFulfill(3, skyGalaxyEarbuds)).andReturn(true);
         cart.add(3, skyGalaxyEarbuds);
-        Fulfillment fulfillment = new Fulfillment(warehouse, () -> cart);
+        Fulfillment fulfillment = new WarehouseFulfillment(warehouse, () -> cart);
         replay(warehouse, cart);
         fulfillment.order(skyGalaxyEarbuds, 3);
         verify(warehouse, cart);

@@ -1,10 +1,7 @@
 package com.xyzcorp.instructor.registration.dao;
 
 import com.xyzcorp.instructor.registration.domain.Student;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -63,30 +63,39 @@ public class MySQLStudentDAORefactorOne implements StudentDAO {
     @Override
     public Optional<Student> findByStudentId(String studentID) throws StudentDAOException {
         try {
-            /* Prepare Statement */
             PreparedStatement preparedStatement =
-                getConnection().prepareStatement(
-                "SELECT id, firstName, lastName, studentId FROM STUDENT WHERE" +
-                    " id " +
-                    "= ?");
-
-            preparedStatement.setLong(1, 1L);
-            preparedStatement.execute();
-
-            Optional<Student> result = Optional.empty();
-            ResultSet resultSet = preparedStatement.getResultSet();
-            while (resultSet.next()) {
-                Long id = resultSet.getLong(1);
-                String firstName = resultSet.getString(2);
-                String lastName = resultSet.getString(3);
-                String studentId = resultSet.getString(4);
-                result = Optional.of(new Student(id, firstName, lastName,
-                    studentId));
-            }
-            return result;
+                prepareFindByStudentId(studentID);
+            return createStudentFromPreparedStatement(preparedStatement);
         } catch (SQLException | ClassNotFoundException e) {
             throw new StudentDAOException(e);
         }
+    }
+
+    private PreparedStatement prepareFindByStudentId(String studentID) throws SQLException, ClassNotFoundException {
+        /* Prepare Statement */
+        PreparedStatement preparedStatement =
+            getConnection().prepareStatement(
+                "SELECT id, firstName, lastName, studentId FROM STUDENT WHERE" +
+                    " studentId " +
+                    "= ?");
+
+        preparedStatement.setString(1, studentID);
+        preparedStatement.execute();
+        return preparedStatement;
+    }
+
+    private Optional<Student> createStudentFromPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
+        Optional<Student> result = Optional.empty();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        while (resultSet.next()) {
+            Long id = resultSet.getLong(1);
+            String firstName = resultSet.getString(2);
+            String lastName = resultSet.getString(3);
+            String studentId = resultSet.getString(4);
+            result = Optional.of(new Student(id, firstName, lastName,
+                studentId));
+        }
+        return result;
     }
 
     @Override

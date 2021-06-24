@@ -29,7 +29,7 @@ public class CaesarShift {
     private char shiftCharacter(char charAt, int actualShift) {
         if (!isLatin(charAt)) return charAt;
         char preferredA = Character.isLowerCase(charAt) ? 'a' : 'A';
-        return (char) (((charAt - preferredA + actualShift % 26) % ALPHA_SIZE) + preferredA);
+        return (char) (((charAt - preferredA + (actualShift % 26) + ALPHA_SIZE) % ALPHA_SIZE) + preferredA);
     }
 
     public String decode(String string) {

@@ -9,11 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CaesarShiftProperty {
 
-    @Property()
-    @Label("An encoded string after decoding should be the same string")
-    public void verifyThatEncodeThenDecodeShouldBeThatSame(@ForAll @AlphaChars String string, @ForAll int shift) {
-        System.out.printf("%s : %d\n", string, shift);
-        CaesarShift cs = new CaesarShift(shift);
-        assertThat(cs.decode(cs.encode(string))).isEqualTo(string);
-    }
+//    @Property()
+//    @Label("An encoded string after decoding should be the same string")
+//    public void verifyThatEncodeThenDecodeShouldBeThatSame(@ForAll @AlphaChars String string, @ForAll int shift) {
+//        System.out.printf("%s : %d\n", string, shift);
+//        CaesarShift cs = new CaesarShift(shift);
+//        assertThat(cs.decode(cs.encode(string))).isEqualTo(string);
+//    }
 }
