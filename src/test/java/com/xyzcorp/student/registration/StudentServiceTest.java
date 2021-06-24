@@ -16,16 +16,22 @@ public class StudentServiceTest {
     @Test
     public void testRegisterStudent() throws StudentDAOException, StudentServiceException {
         StudentDAO studentDAO = mock(StudentDAO.class);
+
+        //StudentService = Subject under test
         StudentService studentService = new StudentService(studentDAO);
 
-        Student expected = new Student(1001L, "Ray", "Polansky", "001");
 
+        // expectation
+        Student expected = new Student(1001L, "Ray", "Polansky", "001");
         expect(studentDAO.findByStudentId("001")).andReturn(Optional.empty());
         expect(studentDAO.persist(new Student("Ray", "Polansky", "001")))
             .andReturn(1001L);
 
+        //replay - only needed for EasyMock
+
         replay(studentDAO);
 
+        //actual run
         Student actual = studentService.registerStudent("Ray", "Polansky", "001");
 
         verify(studentDAO);
