@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.easymock.EasyMock.*;
 import static org.easymock.EasyMock.verify;
 
@@ -36,5 +37,28 @@ public class StudentServiceTest {
 
         verify(studentDAO);
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testRegisterStudentShouldDoSomethingIfNotThere() throws StudentDAOException, StudentServiceException {
+        StudentDAO studentDAO = mock(StudentDAO.class);
+
+        //StudentService = Subject under test
+        StudentService studentService = new StudentService(studentDAO);
+
+        // expectation
+        Student expected = new Student(1001L, "Ray", "Polansky", "001");
+        expect(studentDAO.findByStudentId("001")).andReturn(Optional.of(expected));
+
+        //replay - only needed for EasyMock
+
+        replay(studentDAO);
+
+        //actual run
+        assertThatThrownBy(() -> studentService.registerStudent("Ray", "Polansky", "001"))
+            .isInstanceOf(StudentServiceException.class)
+            .hasMessage("Student is already registered");
+
+        verify(studentDAO);
     }
 }
