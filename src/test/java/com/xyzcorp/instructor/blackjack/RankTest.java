@@ -5,37 +5,33 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fusesource.jansi.Ansi.ansi;
 
-class CardTest {
+class RankTest {
+  Suit dummySuit = Suit.CLUBS;
 
   @Test
   public void withNumberCardHasNumericValueOfTheNumber() throws Exception {
-    Card card = new Card("don't care", "7");
 
-    assertThat(card.rankValue())
+    assertThat(Rank.SEVEN.value())
         .isEqualTo(7);
   }
 
   @Test
   public void withValueOfQueenHasNumericValueOf10() throws Exception {
-    Card card = new Card("don't care", "Q");
-
-    assertThat(card.rankValue())
+    assertThat(Rank.QUEEN.value())
         .isEqualTo(10);
   }
 
   @Test
   public void withAceHasNumericValueOf1() throws Exception {
-    Card card = new Card("don't care", "A");
-
-    assertThat(card.rankValue())
-        .isEqualTo(1);
+      assertThat(Rank.ACE.value())
+          .isEqualTo(1);
   }
 
   @Test
   public void suitOfHeartsOrDiamondsIsDisplayedInRed() throws Exception {
     // given a card with Hearts or Diamonds
-    Card heartsCard = new Card("♥", "10");
-    Card diamondsCard = new Card("♦", "8");
+    Card heartsCard = new Card(Suit.HEARTS, Rank.TEN);
+    Card diamondsCard = new Card(Suit.DIAMONDS, Rank.EIGHT);
 
     // when we ask for its display representation
     String ansiRedString = ansi().fgRed().toString();

@@ -9,7 +9,7 @@ public class LibraryParser {
         return new Checkout(strings[0], strings[1], LocalDate.parse(strings[2]));
     }
 
-    public static Stream<Checkout> convertStreamStringToStreamCheckout(Stream<String> lines) {
+    public static Stream<Checkout> parse(Stream<String> lines) {
         return lines.map(LibraryParser::parse);
     }
 }

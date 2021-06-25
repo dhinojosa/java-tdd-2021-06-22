@@ -7,11 +7,11 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DeckTest {
+class StandardDeckTest {
 
   @Test
   public void fullDeckHas52Cards() throws Exception {
-    Deck deck = new Deck();
+    Deck deck = new StandardDeck();
 
     assertThat(deck.size())
         .isEqualTo(52);
@@ -19,7 +19,7 @@ class DeckTest {
 
   @Test
   public void drawCardFromDeckReducesDeckSizeByOne() throws Exception {
-    Deck deck = new Deck();
+    Deck deck = new StandardDeck();
 
     deck.draw();
 
@@ -29,20 +29,20 @@ class DeckTest {
 
   @Test
   public void drawCardFromDeckReturnsValidCard() throws Exception {
-    Deck deck = new Deck();
+    Deck deck = new StandardDeck();
 
     Card card = deck.draw();
 
     assertThat(card)
         .isNotNull();
 
-    assertThat(card.rankValue())
+    assertThat(card.rank().value())
         .isGreaterThan(0);
   }
 
   @Test
   public void drawAllCardsResultsInSetOf52UniqueCards() throws Exception {
-    Deck deck = new Deck();
+    Deck deck = new StandardDeck();
 
     Set<Card> drawnCards = new HashSet<>();
     for (int i = 1; i <= 52; i++) {
