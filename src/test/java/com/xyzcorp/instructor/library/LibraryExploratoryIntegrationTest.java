@@ -17,10 +17,10 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("integration")
 public class LibraryExploratoryIntegrationTest {
 
     @Test
-    @Tag("integration")
     void testReadingAFileFromResourcesAndPluggingInLibraryParser() throws URISyntaxException, IOException {
         Stream<String> lines = Util.convertResourceToStream("/library.txt");
         Stream<Checkout> checkoutStream = LibraryParser.parse(lines);
