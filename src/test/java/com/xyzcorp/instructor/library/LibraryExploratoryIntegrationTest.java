@@ -15,6 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class LibraryExploratoryIntegrationTest {
 
     @Test
@@ -22,6 +24,7 @@ public class LibraryExploratoryIntegrationTest {
     void testReadingAFileFromResourcesAndPluggingInLibraryParser() throws URISyntaxException, IOException {
         Stream<String> lines = Util.convertResourceToStream("/library.txt");
         Stream<Checkout> checkoutStream = LibraryParser.parse(lines);
+        assertThat(checkoutStream).hasSize(17);
     }
 
     @Test

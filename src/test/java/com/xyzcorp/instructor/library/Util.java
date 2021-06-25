@@ -12,8 +12,8 @@ public class Util {
     public static Stream<String> convertResourceToStream(String resource) throws URISyntaxException,
         IOException {
         URL url = Util.class.getResource(resource);
+        System.out.println(url.toURI());
         Path path = Paths.get(url.toURI());
-        Stream<String> lines = Files.lines(path);
-        return lines;
+        return Files.lines(path);
     }
 }

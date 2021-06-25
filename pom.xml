@@ -176,7 +176,6 @@
                     <target>16</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
-
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -185,6 +184,7 @@
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
